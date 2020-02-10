@@ -1,0 +1,121 @@
+﻿@model Mvc3ValidationGroups.Sample.Models.PlaceOrderInfo
+@{
+    ViewBag.Title = "Checkout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.validationgroups.js")" type="text/javascript"></script>
+<h2>
+    Checkout</h2>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(false, "All Validation Meesages")
+    @Html.ValidationSummary("", false, "All Validation Meesages using Groups")
+    @Html.ValidationSummary(true, "Validation failed with no Validation Meesages")
+    @Html.ValidationSummary("", true, "Validation failed with no Validation Meesages using Groups")
+    @Html.ValidationSummary("Critical", true, "There is a critical issue, please reload this page.")
+    @Html.HiddenFor(m => m.ShoppingBasketKey)
+    <div>
+        <fieldset>
+            <legend>About You</legend>
+            @Html.ValidationSummary("AboutYou", false)
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Name)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.Name)
+                @Html.ValidationMessageFor(m => m.Name)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(m => m.EmailAddress)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.EmailAddress)
+                @Html.ValidationMessageFor(m => m.EmailAddress)
+            </div>
+            <fieldset>
+                <legend>Create an account with us!</legend>
+                @Html.ValidationSummary("CreateAccount", true, "There is a problem with your create account details!")
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.Password)
+                </div>
+                <div class="editor-field">
+                    @Html.PasswordFor(m => m.Password)
+                    @Html.ValidationMessageFor(m => m.Password)
+                </div>
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.ConfirmPassword)
+                </div>
+                <div class="editor-field">
+                    @Html.PasswordFor(m => m.ConfirmPassword)
+                    @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Delivery Address</legend>
+                @Html.ValidationSummary("DeliveryAddress", false, "There is a problem with your delivery address!")
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.DeliveryAddressLine1)
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(m => m.DeliveryAddressLine1)
+                    @Html.ValidationMessageFor(m => m.DeliveryAddressLine1)
+                </div>
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.DeliveryAddressLine2)
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(m => m.DeliveryAddressLine2)
+                    @Html.ValidationMessageFor(m => m.DeliveryAddressLine2)
+                </div>
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.DeliveryAddressLine2)
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(m => m.DeliveryAddressPostalCode)
+                    @Html.ValidationMessageFor(m => m.DeliveryAddressPostalCode)
+                </div>
+                <input type="submit" name="validateDelivery" value="Validate Delivery Address Only"
+                    data-val-valgroup-name="DeliveryAddress" title="Only validate this section" />
+            </fieldset>
+            <fieldset>
+                <legend>Invoice Address</legend>
+                @Html.ValidationSummary("InvoiceAddress", false, "There is a problem with your Invoice address!")
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.InvoiceAddressLine1)
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(m => m.InvoiceAddressLine1)
+                    @Html.ValidationMessageFor(m => m.InvoiceAddressLine1)
+                </div>
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.InvoiceAddressLine2)
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(m => m.InvoiceAddressLine2)
+                    @Html.ValidationMessageFor(m => m.InvoiceAddressLine2)
+                </div>
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.InvoiceAddressLine2)
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(m => m.InvoiceAddressPostalCode)
+                    @Html.ValidationMessageFor(m => m.InvoiceAddressPostalCode)
+                </div>
+                <input type="submit" name="validateInvoice" value="Validate Invoice Address Only"
+                    data-val-valgroup-name="InvoiceAddress" title="Only validate this section" />
+            </fieldset>
+            <p>
+                <input type="submit" name="placeOrder" value="Place Order" 
+                    data-val-valgroup-name="Critical AboutYou DeliveryAddress InvoiceAddress"
+                    title="Trigger validation for certain specified sections" />
+                <input type="submit" name="placeOrderAndCreateAccount" value="Place Order and Create Account"
+                    data-val-valgroup-name="Critical AboutYou CreateAccount DeliveryAddress InvoiceAddress"
+                    title="Trigger validation for all specified sections specifically" />
+                <input type="submit" name="validateAll" value="Validate All" title="Trigger normal validation" />
+            </p>
+        </fieldset>
+    </div>
+            
+}

@@ -1,0 +1,13 @@
+﻿@model Mvc3ValidationGroups.Sample.Models.PlaceOrderInfo
+@{
+    ViewBag.Title = "Validation Successful";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.validationgroups.js")" type="text/javascript"></script>
+<h2>
+    Validation Successful</h2>
+<p>
+    If you can see this the validation was successful!</p>
+<p>
+    The groups validated were: <q>@ViewBag.Groups</q></p>
